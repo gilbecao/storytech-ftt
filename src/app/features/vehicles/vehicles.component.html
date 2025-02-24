@@ -1,22 +1,30 @@
-<div *ngFor="let vehicle of vehicles$()" [@fadeIn]>
-  <h3>{{ vehicle.name }}</h3>
-  <img class="desktop-img" [ngSrc]="getVehicleImageUrl(vehicle, '16x9')" alt="Vehicle image" width="470" height="246"
-    (error)="onImageError($event, '16x9')" preload />
-  <img class="mobile-img" [ngSrc]="getVehicleImageUrl(vehicle, '1x1')" alt="Vehicle image" width="246" height="246"
-    (error)="onImageError($event, '1x1')" preload priority />
+<div class="vehicles">
+  <div class="vehicles__card" *ngFor="let vehicle of vehicles$(), let i = index" [@fadeIn]>
 
+    <img class="vehicles__image vehicles__image--desktop" [ngSrc]="getVehicleImageUrl(vehicle, '16x9')"
+      alt="Vehicle image" width="470" height="246" (error)="onImageError($event, '16x9')" preload
+      [priority]="vehicle.id === 'xe'" />
 
-  <button (click)="toggleVehicleDetails(vehicle)">
-    <span>{{ expandedVehicles.has(vehicle.id) ? 'Hide details' : 'Show details' }}</span>
-  </button>
+    <img class="vehicles__image vehicles__image--mobile" [ngSrc]="getVehicleImageUrl(vehicle, '1x1')"
+      alt="Vehicle image" width="246" height="246" (error)="onImageError($event, '1x1')" preload [priority]="i === 0" />
 
-  <div *ngIf="expandedVehicles.has(vehicle.id)">
-    <p *ngIf="!vehicleDetails$()[vehicle.id]">Loading...</p>
-    <div *ngIf="vehicleDetails$()[vehicle.id]">
-      <p>Description: {{ vehicleDetails$()[vehicle.id].description }}</p>
-      <p>Price: {{ vehicleDetails$()[vehicle.id].price }}</p>
-      <p>Passengers: {{ vehicleDetails$()[vehicle.id].meta.passengers }}</p>
-      <p>Drivetrain: {{ vehicleDetails$()[vehicle.id].meta.drivetrain.join(', ') }}</p>
+    <div class="vehicles__info">
+      <h3 class="vehicles__title">{{ vehicle.name }}</h3>
+
+      <button class="vehicles__button" (click)="toggleVehicleDetails(vehicle)">
+        <span>{{ expandedVehicles.has(vehicle.id) ? 'Hide details' : 'Show details' }}</span>
+      </button>
+
+      <div class="vehicles__details" [class.vehicles__details--visible]="expandedVehicles.has(vehicle.id)">
+        <p *ngIf="!vehicleDetails$()[vehicle.id]">Loading...</p>
+        <div *ngIf="vehicleDetails$()[vehicle.id]">
+          <p>Description: {{ vehicleDetails$()[vehicle.id].description }}</p>
+          <p>Price: {{ vehicleDetails$()[vehicle.id].price }}</p>
+          <p>Passengers: {{ vehicleDetails$()[vehicle.id].meta.passengers }}</p>
+          <p>Drivetrain: {{ vehicleDetails$()[vehicle.id].meta.drivetrain.join(', ') }}</p>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
