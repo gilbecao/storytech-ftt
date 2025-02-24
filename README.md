@@ -56,3 +56,38 @@ If you have achieved primary tasks and would like to showcase your skills by imp
 * [https://frontend-code-test-api-1023992580432.europe-west2.run.app/api/vehicles/{id}](https://frontend-code-test-api-1023992580432.europe-west2.run.app/api/vehicles/xe)
   Returns detail for one vehicle. The vehicle id (provided in the above API call) should be passed as a parameter
 
+## Proyect structure
+
+```
+/src
+  /app
+    /core               # Module with services and global utilities
+      /interceptors     # HTTP Interceptors 
+      /services         # Reusable services
+      core.module.ts
+    /shared             # Reusable components and directives
+      /components       # Reusable UI components
+      /directives       # Reusable directives
+      /pipes            # Reusable pipes
+      shared.module.ts
+    /features           # Feature modules (Ex: Vehicles)
+      /vehicles
+        /components     # Vehicle specific components
+        /pages          # Pages inside vehicles module
+        vehicles.module.ts
+        vehicles-routing.module.ts
+    /store              # NgRx global state
+      /vehicles         # Vehicles state
+        vehicles.actions.ts
+        vehicles.reducer.ts
+        vehicles.effects.ts
+        vehicles.selectors.ts
+      app.state.ts
+      app.reducer.ts
+      app.effects.ts
+      app.module.ts
+    app.component.html
+    app.component.scss
+    app.module.ts
+
+```
