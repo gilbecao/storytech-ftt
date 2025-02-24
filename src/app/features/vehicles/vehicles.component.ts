@@ -1,17 +1,19 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Vehicle } from '../../shared/models/vehicle.model';
 import { VehiclesState } from '../../store/vehicles/vehicles.reducer';
 import {
   loadVehicleDetails,
   loadVehicles,
 } from '../../store/vehicles/vehicles.actions';
+import { VehicleDetailsModalComponent } from './components/vehicle-details-modal/vehicle-details-modal.component';
+import { VehicleImageComponent } from './components/vehicle-image/vehicle-image.component';
+import { Vehicle } from '../../shared/classes/vehicle';
 
 @Component({
   selector: 'app-vehicles',
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, VehicleDetailsModalComponent, VehicleImageComponent],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
   animations: [
@@ -26,6 +28,7 @@ import {
 export class VehiclesComponent {
   vehicles$: WritableSignal<Vehicle[]> = signal([]);
   vehicleDetails$: WritableSignal<{ [id: string]: Vehicle }> = signal({});
+  selectedVehicle: Vehicle | null = null;
   loading$: WritableSignal<boolean> = signal(false);
   expandedVehicles = new Set<string>();
 
@@ -43,28 +46,26 @@ export class VehiclesComponent {
     this.store.dispatch(loadVehicles());
   }
 
-  onImageError(event: Event, ratio: string) {
-    const img = event.target as HTMLImageElement;
-    img.src = `images/${ratio}/no-image.jpg`;
-  }
-
-  getVehicleImageUrl(vehicle: Vehicle, ratio: string): string {
-    return (
-      vehicle.media.find((m) => m.url.includes(ratio))?.url ||
-      `images/${ratio}/no-image.jpg`
-    );
-  }
-
   toggleVehicleDetails(vehicle: Vehicle) {
-    if (this.expandedVehicles.has(vehicle.id)) {
-      this.expandedVehicles.delete(vehicle.id);
+    if (!this.vehicleDetails$()[vehicle.id]) {
+      this.store.dispatch(
+        loadVehicleDetails({ id: vehicle.id, apiUrl: vehicle.apiUrl })
+      );
+
+      const subscription = this.store
+        .select((state) => state.vehicles.vehicleDetails[vehicle.id])
+        .subscribe((details) => {
+          if (details) {
+            this.selectedVehicle = new Vehicle(details);
+            subscription.unsubscribe();
+          }
+        });
     } else {
-      if (!this.vehicleDetails$()[vehicle.id]) {
-        this.store.dispatch(
-          loadVehicleDetails({ id: vehicle.id, apiUrl: vehicle.apiUrl })
-        );
-      }
-      this.expandedVehicles.add(vehicle.id);
+      this.selectedVehicle = this.vehicleDetails$()[vehicle.id];
     }
+  }
+
+  deselectVehicle() {
+    this.selectedVehicle = null;
   }
 }

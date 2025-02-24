@@ -10,7 +10,7 @@ import {
   loadVehiclesSuccess,
 } from './vehicles.actions';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { Vehicle } from '../../shared/models/vehicle.model';
+import { Vehicle } from '../../shared/classes/vehicle';
 
 @Injectable()
 export class VehiclesEffects {

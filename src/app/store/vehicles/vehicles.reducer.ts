@@ -1,5 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { Vehicle } from '../../shared/models/vehicle.model';
 import {
   loadVehicleDetails,
   loadVehicleDetailsFailure,
@@ -8,6 +7,7 @@ import {
   loadVehiclesFailure,
   loadVehiclesSuccess,
 } from './vehicles.actions';
+import { Vehicle } from '../../shared/classes/vehicle';
 
 export interface VehiclesState {
   vehicles: Vehicle[];
@@ -41,7 +41,14 @@ export const vehiclesReducer = createReducer(
   on(loadVehicleDetails, (state) => ({ ...state, loading: true })),
   on(loadVehicleDetailsSuccess, (state, { vehicle }) => ({
     ...state,
-    vehicleDetails: { ...state.vehicleDetails, [vehicle.id]: vehicle },
+    vehicleDetails: {
+      ...state.vehicleDetails,
+      [vehicle.id]: {
+        ...state.vehicles.find((v) => v.id === vehicle.id),
+        ...state.vehicleDetails[vehicle.id],
+        ...vehicle,
+      },
+    },
     loading: false,
   })),
   on(loadVehicleDetailsFailure, (state, { error }) => ({

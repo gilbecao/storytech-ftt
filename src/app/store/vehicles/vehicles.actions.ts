@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Vehicle } from '../../shared/models/vehicle.model';
+import { Vehicle } from '../../shared/classes/vehicle';
 
 export const loadVehicles = createAction('[Vehicle] Load Vehicles');
 export const loadVehiclesSuccess = createAction(

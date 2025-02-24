@@ -1,0 +1,16 @@
+<div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="modal-close" (click)="closeModal()">✖</button>
+
+        <h2 class="modal-title">{{ vehicle.name }}</h2>
+
+        <app-vehicle-image [media]="vehicle.media" [vehicleId]="vehicle.id"></app-vehicle-image>
+
+        <div class="modal-details">
+            <p><b>Description:</b> {{ vehicle.description }}</p>
+            <p><b>Price:</b> {{ vehicle.price }}</p>
+            <p><b>Passengers:</b> {{ vehicle.meta.passengers }}</p>
+            <p><b>Drivetrain:</b> {{ vehicle.meta.drivetrain.join(', ') }}</p>
+        </div>
+    </div>
+</div>
