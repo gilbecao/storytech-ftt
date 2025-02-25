@@ -18,7 +18,7 @@ export class VehicleImageComponent {
   }
 
   getVehicleImageUrl(media: VehicleMedia[], ratio: string): string {
-    if (!media.length) {
+    if (!media?.length) {
       return `images/${ratio}/no-image.jpg`;
     }
     return (

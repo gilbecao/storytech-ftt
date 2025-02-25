@@ -10,7 +10,7 @@ import { Vehicle } from '../../../../shared/classes/vehicle';
   styleUrl: './vehicle-details-modal.component.scss',
 })
 export class VehicleDetailsModalComponent {
-  @Input() vehicle!: Vehicle;
+  @Input() vehicle: Vehicle = new Vehicle();
   @Output() close = new EventEmitter<void>();
 
   closeModal() {

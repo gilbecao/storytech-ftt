@@ -25,7 +25,7 @@ export class VehiclesEffects {
           map((vehicles) =>
             loadVehiclesSuccess({ vehicles: vehicles as Vehicle[] })
           ),
-          catchError((error) => of(loadVehiclesFailure({ error })))
+          catchError((error) => of(loadVehiclesFailure({ error: error })))
         )
       )
     )
@@ -39,7 +39,7 @@ export class VehiclesEffects {
           map((vehicle) =>
             loadVehicleDetailsSuccess({ vehicle: vehicle as Vehicle })
           ),
-          catchError((error) => of(loadVehicleDetailsFailure({ error })))
+          catchError((error) => of(loadVehicleDetailsFailure({ error: error })))
         )
       )
     )

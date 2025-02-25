@@ -28,8 +28,8 @@ import { Vehicle } from '../../shared/classes/vehicle';
 export class VehiclesComponent {
   vehicles$: WritableSignal<Vehicle[]> = signal([]);
   vehicleDetails$: WritableSignal<{ [id: string]: Vehicle }> = signal({});
-  selectedVehicle: Vehicle | null = null;
   loading$: WritableSignal<boolean> = signal(false);
+  selectedVehicle: Vehicle | null = null;
   expandedVehicles = new Set<string>();
 
   private store = inject(Store<{ vehicles: VehiclesState }>);
