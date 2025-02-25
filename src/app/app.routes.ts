@@ -7,6 +7,7 @@ import {
 } from './store/vehicles/vehicles.reducer';
 import { HomeComponent } from './features/home/home.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
         reducer: vehiclesReducer,
       }),
     ],
+    /*  canActivate: [AuthGuard], */
   },
   {
     path: '**',

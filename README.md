@@ -81,6 +81,5 @@ If you have achieved primary tasks and would like to showcase your skills by imp
         vehicles.selectors.ts
     app.component.html
     app.component.scss
-    app.module.ts
 
 ```

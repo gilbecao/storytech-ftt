@@ -17,6 +17,7 @@ import {
   vehiclesReducer,
 } from './store/vehicles/vehicles.reducer';
 import { VehiclesEffects } from './store/vehicles/vehicles.effects';
+import { authFeatureKey, authReducer } from './store/auth/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({
       [vehiclesFeatureKey]: vehiclesReducer,
+      [authFeatureKey]: authReducer,
     }),
     provideEffects([VehiclesEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
