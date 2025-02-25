@@ -13,6 +13,10 @@
   cursor: pointer;
   text-transform: uppercase;
 
+  .active {
+    background-color: #4f4f4e;
+  }
+
   &__logo {
     height: 100%;
     cursor: pointer;
@@ -50,6 +54,7 @@
         align-items: center;
         flex: 1;
         justify-content: center;
+        text-decoration: none;
       }
 
       &:last-child {
@@ -78,6 +83,7 @@
       align-items: center;
       flex: 1;
       justify-content: center;
+      text-decoration: none;
     }
 
     &:last-child {
