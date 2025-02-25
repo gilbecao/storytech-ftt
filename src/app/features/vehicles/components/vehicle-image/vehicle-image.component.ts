@@ -11,6 +11,7 @@ import { VehicleMedia } from '../../../../shared/models/vehicle-media.model';
 export class VehicleImageComponent {
   @Input() media: VehicleMedia[] = [];
   @Input() vehicleId: string = '';
+  @Input() priority: boolean = false;
 
   onImageError(event: Event, ratio: string) {
     const img = event.target as HTMLImageElement;

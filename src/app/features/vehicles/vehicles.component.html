@@ -1,7 +1,7 @@
 <div class="vehicles">
   <div class="vehicles__card" *ngFor="let vehicle of vehicles$(), let i = index" [@fadeIn]>
 
-    <app-vehicle-image [media]="vehicle.media" [vehicleId]="vehicle.id"></app-vehicle-image>
+    <app-vehicle-image [media]="vehicle.media" [vehicleId]="vehicle.id" [priority]="i === 0"></app-vehicle-image>
 
     <div class="vehicles__info">
       <h3 class="vehicles__title">{{ vehicle.name }}</h3>
